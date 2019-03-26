@@ -21,12 +21,12 @@ passport.use(
     {
       clientID: keys.googleClientId,
       clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback'
+      callbackURL: '/auth/google/callback',
+      proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
       const {name, emails, photos, id} = profile;
 
-      console.log(name, id, emails, photos);
       //User already exists
       const existingUser = await User.findOne({googleId: id});
 
