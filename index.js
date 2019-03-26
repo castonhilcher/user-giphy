@@ -48,7 +48,7 @@ if (process.env.NODE_ENV === 'production') {
   const path = require('path');
   app.get('*', (req, res) => {
     res.sendFile(
-      path.resolve(__dirName, 'user-giphy-client', 'build', 'index.html')
+      path.resolve(path.dirname(''), 'user-giphy-client', 'build', 'index.html')
     );
   });
 }
