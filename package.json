@@ -8,6 +8,7 @@
   "scripts": {
     "client": "npm run start --prefix user-giphy-client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix user-giphy-client && npm run build --prefix user-giphy-client",
     "server": "nodemon index.js",
     "start": "node index.js"
   },
