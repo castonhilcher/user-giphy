@@ -4,7 +4,7 @@ const {Schema} = mongoose;
 //Data model for Mongoose/Mongo DB
 const GifSchema = new Schema({
   id: String,
-  categories: [String]
+  category: String
 });
 
 mongoose.model('gifs', GifSchema);

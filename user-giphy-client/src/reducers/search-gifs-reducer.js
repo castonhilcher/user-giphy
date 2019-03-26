@@ -1,4 +1,7 @@
-import {SEARCH_GIFS_SUCCESS} from '../constants/action-types';
+import {
+  CHANGE_CATEGORY_SUCCESS,
+  SEARCH_GIFS_SUCCESS
+} from '../constants/action-types';
 
 export default function(state = [], action) {
   //Each one creates a new object so we don't mutate state
@@ -11,8 +14,17 @@ export default function(state = [], action) {
           url: gif.images.original.webp,
           id: gif.id,
           title: gif.title,
-          favorited: false
+          favorited: false,
+          category: ''
         };
+      });
+    case CHANGE_CATEGORY_SUCCESS:
+      return state.map(gif => {
+        if (gif.id === action.gifId) {
+          gif.category = action.newText;
+        }
+
+        return gif;
       });
     default:
       return state;

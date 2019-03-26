@@ -7,7 +7,8 @@ export default class SearchedGifsComponent extends Component {
       authentication,
       searchedGifs,
       favoriteUserGif,
-      deleteFavoriteGif
+      deleteFavoriteGif,
+      changeCategoryText
     } = this.props;
 
     //TODO: refactor with the favorites page and process faster
@@ -33,25 +34,54 @@ export default class SearchedGifsComponent extends Component {
                     <div className="card">
                       <div className="card-image">
                         <img src={gif.url} alt={gif.title} />
-                        <button
-                          onClick={() => {
-                            if (gif.favorited !== true) {
-                              favoriteUserGif(authentication.id, gif);
-                              gif.favorited = true;
-                            } else {
+                        {!gif.favorited &&
+                          authentication &&
+                          authentication.loggedIn && (
+                            <form
+                              onSubmit={event => {
+                                event.preventDefault();
+                              }}
+                            >
+                              <input
+                                onInput={event => {
+                                  //removes all non characters
+                                  //TODO: update in the UI field
+                                  let newText = event.target.value.replace(
+                                    /[^a-zA-Z]/gi,
+                                    ''
+                                  );
+                                  changeCategoryText(
+                                    gif.id,
+                                    newText.toLowerCase()
+                                  );
+                                }}
+                                type={'text'}
+                                placeholder={'save a category'}
+                                className={'left'}
+                              />
+
+                              <button
+                                onClick={() => {
+                                  favoriteUserGif(authentication.id, gif);
+                                  gif.favorited = true;
+                                }}
+                                className="btn-floating halfway-fab waves-effect waves-light red"
+                              >
+                                <i className="material-icons">add</i>
+                              </button>
+                            </form>
+                          )}
+                        {gif.favorited && (
+                          <button
+                            onClick={() => {
                               deleteFavoriteGif(authentication.id, gif.id);
                               gif.favorited = false;
-                            }
-                          }}
-                          className="btn-floating halfway-fab waves-effect waves-light red"
-                        >
-                          {gif.favorited && (
+                            }}
+                            className="btn-floating halfway-fab waves-effect waves-light red"
+                          >
                             <i className="material-icons">delete</i>
-                          )}
-                          {!gif.favorited && (
-                            <i className="material-icons">add</i>
-                          )}
-                        </button>
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

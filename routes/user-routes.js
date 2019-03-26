@@ -24,13 +24,11 @@ module.exports = app => {
       res.sendStatus(400);
     }
 
-    let {id, categories} = req.body;
-
-    if (!categories) categories = [];
+    let {id, category} = req.body;
 
     Users.findByIdAndUpdate(
       req.user.id,
-      {$push: {favoriteGifs: {id, categories}}},
+      {$push: {favoriteGifs: {id, category}}},
       {new: true},
       (err, user) => {
         if (err) {

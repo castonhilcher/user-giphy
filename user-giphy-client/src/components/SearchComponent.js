@@ -17,7 +17,5 @@ export default class SearchComponent extends Component {
 }
 
 SearchComponent.propTypes = {
-  authentication: PropTypes.object,
-  getGifsFromGiphy: PropTypes.func,
-  favoriteUserGif: PropTypes.func
+  getGifsFromGiphy: PropTypes.func
 };

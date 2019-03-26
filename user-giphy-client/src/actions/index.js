@@ -14,7 +14,8 @@ import {
   USER_INFO_REQUEST,
   USER_INFO_SUCCESS,
   DELETE_GIF_REQUEST,
-  DELETE_GIF_SUCCESS
+  DELETE_GIF_SUCCESS,
+  CHANGE_CATEGORY_SUCCESS
 } from '../constants/action-types';
 
 const getUsersFavoriteGifs = userId => async dispatch => {
@@ -97,7 +98,7 @@ export const favoriteUserGif = (userId, gif) => async dispatch => {
   //Make call using axios to Giphy
   const response = await axios.post(`/api/current-user/${userId}/gifs`, {
     id: gif.id,
-    categories: []
+    category: gif.category
   });
 
   dispatch({
@@ -130,5 +131,14 @@ export const deleteFavoriteGif = (userId, gifId) => async dispatch => {
   dispatch({
     type: DELETE_GIF_SUCCESS,
     gifId: gifId
+  });
+};
+
+// example of a thunk using the redux-thunk middleware
+export const changeCategoryText = (gifId, newText) => dispatch => {
+  dispatch({
+    type: CHANGE_CATEGORY_SUCCESS,
+    gifId: gifId,
+    newText: newText
   });
 };
